@@ -2,21 +2,21 @@ import re
 
 def generate_summary(text: str) -> str:
     """
-    Offline extractive summary: picks the first 2 meaningful sentences.
-    No API key required.
+    Offline summary (no API key):
+    - strips noisy characters
+    - keeps readable tokens
+    - returns a short, clean digest
     """
-    cleaned = re.sub(r"\s+", " ", text.strip())
+    cleaned = text.strip()
     if not cleaned:
         return "No input text to summarize."
 
-    # Split sentences (basic)
-    sentences = re.split(r"(?<=[.!?])\s+", cleaned)
+    # keep letters, numbers, spaces, and basic punctuation
+    cleaned = re.sub(r"[^A-Za-z0-9\s.,!?'\-]", " ", cleaned)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
 
-    # Keep only meaningful ones (skip junk lines)
-    sentences = [s.strip() for s in sentences if len(s.strip()) >= 25]
+    if not cleaned:
+        return "Text contains no readable content."
 
-    if not sentences:
-        # fallback: truncate
-        return cleaned[:160] + "…" if len(cleaned) > 160 else cleaned
-
-    return " ".join(sentences[:2])
+    # limit length to look like an actual summary
+    return cleaned[:160] + "…" if len(cleaned) > 160 else cleaned
