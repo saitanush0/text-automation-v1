@@ -1,0 +1,17 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.env/
+
+# System files (Mac)
+.DS_Store
+
+# Output files (generated automatically)
+output.txt
+
+# Environment variables / secrets
+.env

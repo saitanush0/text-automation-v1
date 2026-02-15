@@ -1,3 +1,4 @@
+from llm_utils import generate_summary
 from datetime import datetime
 
 def read_input():
@@ -24,6 +25,7 @@ def write_output(result):
 
 def main():
     input_text = read_input()
+    summary = generate_summary(input_text)
 
     upper_text, word_count, char_count, line_count, timestamp = process_text(input_text)
 
@@ -43,6 +45,9 @@ Character Count (no spaces):
 Line Count:
 {line_count}
 
+Summary:
+{summary}
+
 Processed At:
 {timestamp}
 """
@@ -51,6 +56,3 @@ Processed At:
 
 if __name__ == "__main__":
     main()
-def main():
-    input_text = read_input()
-    print("DEBUG INPUT:", repr(input_text))  
