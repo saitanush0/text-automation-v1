@@ -1,0 +1,24 @@
+
+Original Text:
+this is day 2 and i am doing my Best
+lklknv;amdvA"MVD:ALvv
+;aKDSNv /??CNVWEOVJ
+
+
+Uppercase Text:
+THIS IS DAY 2 AND I AM DOING MY BEST
+LKLKNV;AMDVA"MVD:ALVV
+;AKDSNV /??CNVWEOVJ
+
+
+Word Count:
+13
+
+Character Count (no spaces):
+66
+
+Line Count:
+3
+
+Processed At:
+2026-02-15 10:06:14
