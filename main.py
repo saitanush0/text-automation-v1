@@ -1,13 +1,16 @@
+import argparse
 from llm_utils import generate_summary
 from datetime import datetime
 
-def read_input():
+
+def read_input(filepath):
     try:
-        with open("input.txt", "r") as file:
+        with open(filepath, "r") as file:
             return file.read()
     except FileNotFoundError:
-        print("❌ input.txt not found. Create the file and try again.")
+        print(f"❌ {filepath} not found.")
         exit()
+
 
 def process_text(text):
     upper_text = text.upper()
@@ -18,16 +21,47 @@ def process_text(text):
 
     return upper_text, word_count, char_count, line_count, timestamp
 
-def write_output(result):
-    with open("output.txt", "w") as file:
+
+def write_output(result, filepath):
+    with open(filepath, "w") as file:
         file.write(result)
-    print("✅ Output saved to output.txt")
+    print(f"✅ Output saved to {filepath}")
+
 
 def main():
-    input_text = read_input()
-    summary = generate_summary(input_text)
+    parser = argparse.ArgumentParser(
+        prog="ta-cli",
+        description="Text Automation Tool (offline NLP summary + text stats)",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        epilog="Example:\n  python main.py --input input.txt --output output.txt --summarize"
+)
+
+    parser.add_argument(
+    "--input", "--in",
+    dest="input_file",
+    default="input.txt",
+    help="Path to input text file"
+)
+    parser.add_argument(
+    "--output", "--out",
+    dest="output_file",
+    default="output.txt",
+    help="Path to output file"
+)
+    parser.add_argument(
+    "--summarize",
+    action="store_true",
+    help="Add offline NLP summary section"
+)
+
+
+    args = parser.parse_args()
+
+    input_text = read_input(args.input_file)
 
     upper_text, word_count, char_count, line_count, timestamp = process_text(input_text)
+
+    summary = generate_summary(input_text) if args.summarize else "Summary disabled."
 
     result = f"""
 Original Text:
@@ -52,7 +86,8 @@ Processed At:
 {timestamp}
 """
 
-    write_output(result)
+    write_output(result, args.output_file)
+
 
 if __name__ == "__main__":
     main()
