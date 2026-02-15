@@ -45,7 +45,7 @@ Character Count (no spaces):
 Line Count:
 {line_count}
 
-Summary:
+Summary (offline NLP):
 {summary}
 
 Processed At:
